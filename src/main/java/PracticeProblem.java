@@ -4,24 +4,32 @@ public class PracticeProblem {
 
 	}
 
-	public static void q1() {
-		//Write question 1 code here
+	public static int[] recaman(int n){
+		if (n == 0) return new int[0];
+		if (n == 1) return new int[]{1};
+		int[] arr = new int[n];
+		arr[0] = 0;
+		Set<Integer> seen = new HashSet<>();
+		generateRecaman(1, n, arr, seen, 0);
+		return arr;
 	}
+	public static void generateRecaman(int start, int n, int[] result, Set<Integer> seen, int pos) {
+		if (start > n) {
+			return;
+		}
+		int candidate = pos - start;
 
-	public static void q2() {
-		//Write question 2 code here
-	}
-
-	public static void q3() {
-		//Write question 3 code here
-	}
-
-	public static void q4() {
-		//Write question 4 code here
-	}
-
-	public static void q5() {
-		//Write question 5 code here
+		// if candidate meet requirements
+		if (candidate > 0 && !seen.contains(candidate)) {
+			result[start - 1] = candidate;
+			seen.add(candidate);
+		} else {
+			// else case
+			candidate = pos + start;
+			result[start - 1] = candidate;
+			seen.add(candidate);
+		}
+		generateRecaman(n + 1, n, result, seen, candidate);
 	}
 
 }
