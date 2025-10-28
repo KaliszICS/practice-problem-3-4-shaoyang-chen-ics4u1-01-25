@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class PracticeProblem {
 
 	public static void main(String args[]) {
