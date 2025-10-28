@@ -4,32 +4,34 @@ public class PracticeProblem {
 
 	}
 
-	public static int[] recaman(int n){
-		if (n == 0) return new int[0];
-		if (n == 1) return new int[]{1};
-		int[] arr = new int[n];
-		arr[0] = 0;
-		Set<Integer> seen = new HashSet<>();
-		generateRecaman(1, n, arr, seen, 0);
-		return arr;
-	}
-	public static void generateRecaman(int start, int n, int[] result, Set<Integer> seen, int pos) {
-		if (start > n) {
-			return;
-		}
-		int candidate = pos - start;
+	public static Set<Integer> seen;
+    public static int[] result;
+    public static int[] recaman(int n){
+        if (n == 0) return new int[0];
+        if (n == 1) return new int[]{1};
+        int[] result = new int[n];
+        result[0] = 0;
+        Set<Integer> seen = new HashSet<>();
+        generateRecaman(1, 0);
+        return result;
+    }
+    public static void generateRecaman(int start, int prev) {
+        if (start > result.length) {
+            return;
+        }
+        int testValue = prev - start;
 
-		// if candidate meet requirements
-		if (candidate > 0 && !seen.contains(candidate)) {
-			result[start - 1] = candidate;
-			seen.add(candidate);
-		} else {
-			// else case
-			candidate = pos + start;
-			result[start - 1] = candidate;
-			seen.add(candidate);
-		}
-		generateRecaman(n + 1, n, result, seen, candidate);
-	}
+        // if testValue meet requirements
+        if (testValue > 0 && !seen.contains(testValue)) {
+            result[start - 1] = testValue;
+            seen.add(testValue);
+        } else {
+            // else case
+            testValue = prev + start;
+            result[start - 1] = testValue;
+            seen.add(testValue);
+        }
+        generateRecaman(start +1, testValue);
+    }
 
 }
